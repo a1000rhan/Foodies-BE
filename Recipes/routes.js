@@ -10,20 +10,20 @@ const {
   fetchRecipes,
 } = require("./controller");
 
-routers.param("productId", async (req, res, next, id) => {
-  const product = await fetchProduct(id, next);
-  if (product) {
-    req.product = product;
+routers.param("recipeId", async (req, res, next, id) => {
+  const recipe = await fetchRecipes(id, next);
+  if (recipe) {
+    req.recipe = recipe;
     next();
   } else {
-    next({ status: 404, message: "product not found" });
+    next({ status: 404, message: "recipe not found" });
   }
 });
 
 routers.get("/", getRecipe);
-//return one product based on id #
-routers.get("/:productId", getDetail);
+//return one recipe based on id #
+routers.get("/:recipeId", getDetail);
 
-routers.delete("/:productId", deleteRecipe);
-routers.put("/:productId", upload.single("image"), updateRecipe);
+routers.delete("/:recipeId", deleteRecipe);
+routers.put("/:recipeId", upload.single("image"), updateRecipe);
 module.exports = routers;

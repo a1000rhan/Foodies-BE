@@ -1,9 +1,9 @@
 const Recipes = require("../db/models/Recipe");
 
-exports.fetchProduct = async (productId, next) => {
+exports.fetchRecipes = async (recipeId, next) => {
   try {
-    const prodcut = await Product.findById(productId);
-    return prodcut;
+    const recipe = await Recipe.findById(recipeId);
+    return recipe;
   } catch (err) {
     next(err);
   }
@@ -12,11 +12,9 @@ exports.fetchProduct = async (productId, next) => {
 exports.getRecipes = async (req, res, next) => {
   try {
     //this mothed take only what inside the ""
-    const productArray = await Product.find({}).select(
-      "name image price color"
-    );
+    const recipeArray = await Recipe.find({}).select("name image price color");
 
-    res.json(productArray);
+    res.json(recipeArray);
   } catch (err) {
     next(err);
   }
@@ -24,18 +22,18 @@ exports.getRecipes = async (req, res, next) => {
 
 exports.getDetail = async (req, res, next) => {
   try {
-    const oneProduct = await Product.findById({ _id: req.prodcut.id });
-    // const oneProduct = products.find((e) => e.id === +id);
-    res.json(oneProduct);
+    const oneRecipe = await Recipe.findById({ _id: req.recipe.id });
+    // const oneRecipe = recipes.find((e) => e.id === +id);
+    res.json(oneRecipe);
   } catch (err) {
     next(err);
   }
 };
 
-exports.deleteProduct = async (req, res, next) => {
+exports.deleteRecipe = async (req, res, next) => {
   try {
-    await Product.findByIdAndDelete({
-      _id: req.product.id,
+    await Recipe.findByIdAndDelete({
+      _id: req.recipe.id,
     });
 
     res.status(204).end();
@@ -44,14 +42,14 @@ exports.deleteProduct = async (req, res, next) => {
   }
 };
 
-exports.updateProduct = async (req, res, next) => {
+exports.updateRecipe = async (req, res, next) => {
   try {
     if (req.file) {
       req.body.image = `${req.protocol}://${req.get("host")}/${req.file.path}`;
     }
     console.log(req.body); //new:true to to show the update after change immiditly
-    const product = await Product.findByIdAndUpdate(
-      { _id: req.product.id },
+    const recipe = await Recipe.findByIdAndUpdate(
+      { _id: req.recipe.id },
       req.body,
       {
         new: true,
@@ -59,7 +57,7 @@ exports.updateProduct = async (req, res, next) => {
       }
     );
 
-    res.json(product);
+    res.json(recipe);
   } catch (err) {
     next(err);
   }
