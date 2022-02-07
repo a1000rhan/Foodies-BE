@@ -1,4 +1,4 @@
-const Ingredient = require("../db/models/Ingredient");
+const Ingredient = require("../../db/models/Ingredient");
 
 exports.fetchIngredient = async (ingredientId, next) => {
   try {
@@ -22,15 +22,7 @@ exports.getIngredient = async (req, res, next) => {
   }
 };
 
-exports.addIngredient = async (req, res, next) => {
-    try {
-        const newIngredient = await Ingredient.create(req.body); 
-        console.log("🚀 ~ file: controllers.js ~ line 42 ~ exports.updateProducts=async ~ ingredient", newIngredient)
-        return res.status(201). res.json(newIngredient)
-    } catch (error) {
-        next(error);
-    }
-}
+
 
 
 exports.deleteIngredient = async (req, res, next) => {

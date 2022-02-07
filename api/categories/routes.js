@@ -1,28 +1,28 @@
 const express = require('express');
 
 const {
-  getRecpie,
-  fetchRecpie,
-  racpieCreate
+  getCategory,
+  fetchCategory,
+  categoryCreate
  
 } = require('./controllers');
 // const upload = require('../../middleware/multer');
 
-const router = express.Router();
+const routers = express.Router();
 
-router.param('Recpie', async (req, res, next, Recpie) => {
-    const recpie = await fetchRecpie(Recpie, next);
-    if (recpie) {
-      req.recpie = recpie;
+routers.param('categoryId', async (req, res, next, id) => {
+    const Category = await fetchCategory(id, next);
+    if (Category) {
+      req.Category = Category;
       next();
     } else {
-      const err = new Error('Recpie Not Found');
+      const err = new Error('Category Not Found');
       err.status = 404;
       next(err);
     }
   });
 
-  router.get('/', getRecpie);
-  router.post('/', racpieCreate);
+  routers.get("/", getCategory);
+  routers.post('/', categoryCreate);
 
-  module.exports = router;
+  module.exports = routers;

@@ -1,6 +1,6 @@
-const Categories = require("../../db/models/Categories")
+const category = require("../../db/models/Categories")
 
-exports.fetchRecpie = async (req, res, next) => {
+exports.fetchCategory = async (req, res, next) => {
     try {
       const recpie = await Recpie.find().populate("recpie", "title");
       res.json(recpie)
@@ -9,7 +9,7 @@ exports.fetchRecpie = async (req, res, next) => {
     }
   };
 
-  exports.getRecpie = async (req, res) => {
+  exports.getCategory = async (req, res) => {
     try {
       const recipie = await Recpie.find();
       return res.json(recipie);
@@ -18,7 +18,7 @@ exports.fetchRecpie = async (req, res, next) => {
     }
   };
 
-  exports.racpieCreate = async (req, res, next) => {
+  exports.categoryCreate = async (req, res, next) => {
     try {
     
       const newRecpie = await Recpie.create(req.body);

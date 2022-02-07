@@ -6,8 +6,8 @@ const {
   deleteIngredient,
   updateIngredient,
   fetchIngredients,
-} = require("./controller");
-const { addIngredient } = require("./controllers");
+} = require("./controllers");
+
 
 routers.param("ingredientId", async (req, res, next, id) => {
   const ingredient = await fetchIngredients(id, next);
@@ -21,7 +21,6 @@ routers.param("ingredientId", async (req, res, next, id) => {
 
 routers.get("/", getIngredient);
 //return one product based on id #
-routers.post("/",addIngredient)
 
 
 routers.delete("/:ingredientId", deleteIngredient);

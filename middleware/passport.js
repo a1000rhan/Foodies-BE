@@ -1,6 +1,6 @@
 const LocalStartegy = require("passport-local").Strategy;
 const JWTStrategy = require("passport-jwt").Strategy
-const User = require ("../api/User");
+const User = require ("../db/models/User");
 const bcrypt = require("bcrypt");
 const { fromAuthHeaderAsBearerToken } = require("passport-jwt").ExtractJwt;
 const {JWT_SECRETKEY} = require("../config/keys")
@@ -14,6 +14,7 @@ exports.localStartegy = new LocalStartegy(async(username,password,done) =>{
         if(passwordMatch){
            //go to sign in 
            done (null,user);
+           
         }else{
              done (null,false);//401
         }
@@ -29,13 +30,18 @@ exports.jwtStrategy = new JWTStrategy(
 }, 
 
 async(jwtPayload,done) =>{
-    if (Date.now() > jwtPayload.exp) done(null,false)
+    console.log("🚀 ~ file: passport.js ~ line 33 ~ async ~ jwtPayload", jwtPayload)
     try{
-const user = await User.findOne({_id: jwtPayload._id});
-    if(user) done(null,user)
-    else done(null,false) 
-}
-catch(error){
+        if (Date.now() > jwtPayload.exp){ 
+            done(null,false)
+        }else{
+            const user = await User.findOne({_id: jwtPayload.id});
+            if(user) {
+                done(null,user)
+            }else{ done(null,false) }
+                }
+
+    }catch(error){
         done(error);
     }
 }
