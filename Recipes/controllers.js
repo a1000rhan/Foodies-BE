@@ -1,4 +1,4 @@
-const Recipes = require("../db/models/Recipe");
+const Recipe = require("../db/models/Racpie");
 
 exports.fetchRecipes = async (recipeId, next) => {
   try {
@@ -12,14 +12,22 @@ exports.fetchRecipes = async (recipeId, next) => {
 exports.getRecipes = async (req, res, next) => {
   try {
     //this mothed take only what inside the ""
-    const recipeArray = await Recipe.find({}).select("name image price color");
+    const recipeArray = await Recipe.find({});
 
     res.json(recipeArray);
   } catch (err) {
     next(err);
   }
 };
+exports.createRecpie = async (req, res, next) => {
+  try {
+    const newRecpie = await Recipe.create(req.body);
 
+    return res.status(201).json(newRecpie);
+  } catch (e) {
+    next(e);
+  }
+};
 exports.getDetail = async (req, res, next) => {
   try {
     const oneRecipe = await Recipe.findById({ _id: req.recipe.id });

@@ -7,6 +7,8 @@ const RecipeSchema = new mongoose.Schema({
   description: { type: String },
   calorie: { type: Number },
   catogire: { type: Number, min: 1, default: 1 },
+  ingrediants: { type: String },
+  amounts: { type: String },
 });
-RecipeSchema.plugin(mongooseSlugPlugin, { tmpl: "<%=name%>" });
+RecipeSchema.plugin(mongooseSlugPlugin, { tmpl: "<%=title%>" });
 module.exports = mongoose.model("Recipe", RecipeSchema);

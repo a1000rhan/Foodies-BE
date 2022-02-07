@@ -4,11 +4,12 @@ const routers = express.Router();
 
 const {
   getRecipes,
+  createRecpie,
   getDetail,
   deleteRecipe,
   updateRecipe,
   fetchRecipes,
-} = require("./controller");
+} = require("./controllers");
 
 routers.param("recipeId", async (req, res, next, id) => {
   const recipe = await fetchRecipes(id, next);
@@ -20,10 +21,10 @@ routers.param("recipeId", async (req, res, next, id) => {
   }
 });
 
-routers.get("/", getRecipe);
+routers.get("/", getRecipes);
 //return one recipe based on id #
+routers.post("/", createRecpie);
 routers.get("/:recipeId", getDetail);
-
 routers.delete("/:recipeId", deleteRecipe);
-routers.put("/:recipeId", upload.single("image"), updateRecipe);
+routers.put("/:recipeId", updateRecipe);
 module.exports = routers;
