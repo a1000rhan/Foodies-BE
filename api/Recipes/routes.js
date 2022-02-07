@@ -1,5 +1,5 @@
 const express = require("express");
-const upload = require("../middleware/multer");
+const upload = require("../../middleware/multer");
 const routers = express.Router();
 
 const {
@@ -8,7 +8,7 @@ const {
   deleteRecipe,
   updateRecipe,
   fetchRecipes,
-} = require("./controller");
+} = require("./controllers");
 
 routers.param("productId", async (req, res, next, id) => {
   const product = await fetchProduct(id, next);

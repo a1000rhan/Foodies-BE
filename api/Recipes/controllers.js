@@ -1,4 +1,4 @@
-const Recipes = require("../db/models/Recipe");
+const Recipes = require("../../db/models/Racpie");
 
 exports.fetchProduct = async (productId, next) => {
   try {
