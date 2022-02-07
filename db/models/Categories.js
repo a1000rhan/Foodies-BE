@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
-const mongooseSlugPlugin = require('mongoose-slug-plugin');
-const RecpieSchema = new mongoose.Schema(
+
+const CategorySchema = new mongoose.Schema(
   {
-    title: String,
-    recipies:[{type: mongoose.Schema.Types.ObjectId, ref: "Recpie"}]
+    title: {type :String, required:true},
+    recipies:[{type: mongoose.Schema.Types.ObjectId, ref: "Recipe"}]
     
   });
 
 
-module.exports = mongoose.model('Recpie', RecpieSchema);
+module.exports = mongoose.model('Category', CategorySchema);
