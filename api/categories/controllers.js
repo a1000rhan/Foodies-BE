@@ -17,4 +17,15 @@ exports.fetchRecpie = async (req, res, next) => {
       return res.status(500).json({ message: error.message });
     }
   };
+
+  exports.racpieCreate = async (req, res, next) => {
+    try {
+    
+      const newRecpie = await Recpie.create(req.body);
+      return res.status(201).json(newRecpie);
+    } catch (error) {
+      next(error);
+    }
+  };
+  
   

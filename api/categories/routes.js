@@ -3,6 +3,7 @@ const express = require('express');
 const {
   getRecpie,
   fetchRecpie,
+  racpieCreate
  
 } = require('./controllers');
 // const upload = require('../../middleware/multer');
@@ -22,5 +23,6 @@ router.param('Recpie', async (req, res, next, Recpie) => {
   });
 
   router.get('/', getRecpie);
+  router.post('/', racpieCreate);
 
   module.exports = router;
