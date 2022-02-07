@@ -1,17 +1,11 @@
 {
   "name": "foodies-be",
   "version": "1.0.0",
-<<<<<<< HEAD
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-=======
   "description": "",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js"
->>>>>>> 5e832ee05ad066c425b0c3a4ce6b2aca792ab4ad
   },
   "repository": {
     "type": "git",
@@ -25,13 +19,6 @@
   },
   "homepage": "https://github.com/a1000rhan/Foodies-BE#readme",
   "dependencies": {
-<<<<<<< HEAD
-    "express": "^4.17.2"
-  },
-  "devDependencies": {},
-  "description": ""
-}
-=======
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "express": "^4.17.2",
@@ -46,4 +33,3 @@
     "slugify": "^1.6.5"
   }
 }
->>>>>>> 5e832ee05ad066c425b0c3a4ce6b2aca792ab4ad
