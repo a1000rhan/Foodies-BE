@@ -1,16 +1,16 @@
 const express = require('express');
+const routers = express.Router();
 
 const {
   getCategory,
   fetchCategory,
-  categoryCreate
+  categoryCreate,
+ 
  
 } = require('./controllers');
 // const upload = require('../../middleware/multer');
 
-const routers = express.Router();
-
-routers.param('categoryId', async (req, res, next, id) => {
+routers.param('CategoryId', async (req, res, next, id) => {
     const Category = await fetchCategory(id, next);
     if (Category) {
       req.Category = Category;
@@ -23,6 +23,6 @@ routers.param('categoryId', async (req, res, next, id) => {
   });
 
   routers.get("/", getCategory);
-  routers.post('/', categoryCreate);
 
+  
   module.exports = routers;
