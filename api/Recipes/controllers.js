@@ -41,39 +41,22 @@ exports.createRecipes = async (req, res, next) => {
       req.body.owner =req.user._id
       const newRecpie = await Recipes.create(req.body); 
       console.log("🚀 ~ file: controllers.js ~ line 42 ~ exports.updateProducts=async ~ Recipes", newRecpie)
+       req.body.Ingredient.map(
+         async(Ingredient)
+       )
+      await Recipes.findOneAndUpdate(
+        { _id: req.params.recipesId },
+        { $push: { Ingredient: newIngredient._id } }
+      );
       return res.status(201).json(newRecpie)
   } catch (error) {
       next(error);
   }
 }
 
-exports.addIngredient = async (req, res, next) => {
-  try {
-      const newIngredient = await Ingredient.create(req.body); 
-      console.log("🚀 ~ file: controllers.js ~ line 50 ~ exports.addIngredient= ~ newIngredient", newIngredient)
-      await Recipes.findOneAndUpdate(
-        {_id:req.params.recipeId},
-        {$push:{Ingredient:newIngredient._id}}
-      );
-      return res.status(201).json(newIngredient)
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
-  }
-}
 
-exports.categoryCreate = async (req, res, next) => {
-  try {
-    const newCategory = await Category.create(req.body); 
-    console.log("🚀 ~ file: controllers.js ~ line 50 ~ exports.addIngredient= ~ newIngredient", newCategory)
-    await Recipes.findOneAndUpdate(
-      {_id:req.params.recipeId},
-      {$push:{Category:newCategory._id}}
-    );
-    return res.status(201).json(newCategory)
-} catch (error) {
-  return res.status(500).json({ message: error.message });
-}
-};
+
+
 
 
 exports.deleteRecipe = async (req, res, next) => {
