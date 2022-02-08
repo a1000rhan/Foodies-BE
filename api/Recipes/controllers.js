@@ -6,7 +6,7 @@ const Category = require("../../db/models/Categories")
 
 exports.fetchRecipe = async (recipesId, next) => {
   try {
-    const recipe = await Recipes.findById(recipesId);
+    const recipe = await Recipes.findById(recipesId).populate('owner');
     return recipe;
   } catch (err) {
     next(err);
