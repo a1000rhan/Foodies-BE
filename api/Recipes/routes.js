@@ -9,9 +9,9 @@ const {
   deleteRecipe,
   updateRecipe,
   fetchRecipe,
-  createRecipes,
+
   addIngredient,
-  categoryCreate
+  categoryCreate,
 } = require("./controllers");
 
 routers.param("recipesId", async (req, res, next, id) => {
@@ -27,13 +27,8 @@ routers.param("recipesId", async (req, res, next, id) => {
 routers.get("/", getRecipes);
 //return one recipe based on id #
 routers.get("/:recipesId", getDetail);
-routers.post('/',passport.authenticate("jwt",{session:false}),upload.single("image"), createRecipes);
 
-
-
-
-
-
-routers.delete("/:recipesId",deleteRecipe);
+routers.post("/:recipesId/ingredient", addIngredient);
+routers.delete("/:recipesId", deleteRecipe);
 routers.put("/:recipesId", upload.single("image"), updateRecipe);
 module.exports = routers;
