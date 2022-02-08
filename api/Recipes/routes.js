@@ -28,8 +28,8 @@ routers.get("/", getRecipes);
 //return one recipe based on id #
 routers.get("/:recipesId", getDetail);
 routers.post('/',passport.authenticate("jwt",{session:false}),upload.single("image"), createRecipes);
-routers.post("/:recipies/CategoryId",categoryCreate);
-routers.post("/:recipesId/ingredient",addIngredient);
+
+
 
 
 

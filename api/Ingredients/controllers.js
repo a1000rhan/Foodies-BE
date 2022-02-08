@@ -22,6 +22,17 @@ exports.getIngredient = async (req, res, next) => {
   }
 };
 
+exports.addIngredient = async (req, res, next) => {
+  try {
+      const newIngredient = await Ingredient.create(req.body); 
+      console.log("🚀 ~ file: controllers.js ~ line 50 ~ exports.addIngredient= ~ newIngredient", newIngredient)
+      
+      return res.status(201).json(newIngredient)
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+}
+
 
 
 

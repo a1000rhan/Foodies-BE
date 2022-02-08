@@ -2,7 +2,7 @@ const Recipes = require("../../db/models/Racpie");
 
 const Ingredient = require("../../db/models/Ingredient");
 
-const Category = require("../../db/models/Categories")
+const Category = require("../../db/models/Categories");
 
 exports.fetchRecipe = async (recipesId, next) => {
   try {
@@ -16,9 +16,7 @@ exports.fetchRecipe = async (recipesId, next) => {
 exports.getRecipes = async (req, res, next) => {
   try {
     //this mothed take only what inside the "
-    const recipeArray = await Recipes.find()
-    
-    
+    const recipeArray = await Recipes.find();
 
     res.json(recipeArray);
   } catch (err) {
@@ -28,7 +26,9 @@ exports.getRecipes = async (req, res, next) => {
 
 exports.getDetail = async (req, res, next) => {
   try {
-    const oneRecipe = await Recipes.findById({ _id: req.recipe._id });
+    const oneRecipe = await Recipes.findById({ _id: req.recipe._id }).populate(
+      "owner"
+    );
     // const oneProduct = products.find((e) => e.id === +id);
     res.json(oneRecipe);
   } catch (err) {
@@ -38,43 +38,22 @@ exports.getDetail = async (req, res, next) => {
 
 exports.createRecipes = async (req, res, next) => {
   try {
-      req.body.owner =req.user._id
-      const newRecpie = await Recipes.create(req.body); 
-      console.log("🚀 ~ file: controllers.js ~ line 42 ~ exports.updateProducts=async ~ Recipes", newRecpie)
-      return res.status(201).json(newRecpie)
-  } catch (error) {
-      next(error);
-  }
-}
-
-exports.addIngredient = async (req, res, next) => {
-  try {
-      const newIngredient = await Ingredient.create(req.body); 
-      console.log("🚀 ~ file: controllers.js ~ line 50 ~ exports.addIngredient= ~ newIngredient", newIngredient)
-      await Recipes.findOneAndUpdate(
-        {_id:req.params.recipeId},
-        {$push:{Ingredient:newIngredient._id}}
-      );
-      return res.status(201).json(newIngredient)
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
-  }
-}
-
-exports.categoryCreate = async (req, res, next) => {
-  try {
-    const newCategory = await Category.create(req.body); 
-    console.log("🚀 ~ file: controllers.js ~ line 50 ~ exports.addIngredient= ~ newIngredient", newCategory)
-    await Recipes.findOneAndUpdate(
-      {_id:req.params.recipeId},
-      {$push:{Category:newCategory._id}}
+    req.body.owner = req.user._id;
+    const newRecpie = await Recipes.create(req.body);
+    console.log(
+      "🚀 ~ file: controllers.js ~ line 42 ~ exports.updateProducts=async ~ Recipes",
+      newRecpie
     );
-    return res.status(201).json(newCategory)
-} catch (error) {
-  return res.status(500).json({ message: error.message });
-}
+    req.body.Ingredient.map(async(Ingredient));
+    await Recipes.findOneAndUpdate(
+      { _id: req.params.recipesId },
+      { $push: { Ingredient: newIngredient._id } }
+    );
+    return res.status(201).json(newRecpie);
+  } catch (error) {
+    next(error);
+  }
 };
-
 
 exports.deleteRecipe = async (req, res, next) => {
   try {
