@@ -1,9 +1,9 @@
-const category = require("../../db/models/Categories")
+const Category = require("../../db/models/Categories")
 
 exports.fetchCategory = async (req, res, next) => {
     try {
-      const recpie = await Recpie.find().populate("recpie", "title");
-      res.json(recpie)
+      const category = await Category.findById(CategoryId);
+      res.json(category)
     } catch (error) {
       next(error);
     }
@@ -11,8 +11,8 @@ exports.fetchCategory = async (req, res, next) => {
 
   exports.getCategory = async (req, res) => {
     try {
-      const recipie = await Recpie.find();
-      return res.json(recipie);
+      const category = await Category.find();
+      return res.json(category);
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }
@@ -21,8 +21,8 @@ exports.fetchCategory = async (req, res, next) => {
   exports.categoryCreate = async (req, res, next) => {
     try {
     
-      const newRecpie = await Recpie.create(req.body);
-      return res.status(201).json(newRecpie);
+      const newCategory = await Category.create(req.body);
+      return res.status(201).json(newCategory);
     } catch (error) {
       next(error);
     }
