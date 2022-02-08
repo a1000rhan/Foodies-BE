@@ -1,6 +1,8 @@
 const Recipes = require("../../db/models/Racpie");
 
-const Ingredient = require("../../db/models/Ingredient")
+const Ingredient = require("../../db/models/Ingredient");
+
+const Category = require("../../db/models/Categories")
 
 exports.fetchRecipe = async (recipesId, next) => {
   try {
@@ -58,6 +60,21 @@ exports.addIngredient = async (req, res, next) => {
     return res.status(500).json({ message: error.message });
   }
 }
+
+exports.categoryCreate = async (req, res, next) => {
+  try {
+    const newCategory = await Category.create(req.body); 
+    console.log("🚀 ~ file: controllers.js ~ line 50 ~ exports.addIngredient= ~ newIngredient", newCategory)
+    await Recipes.findOneAndUpdate(
+      {_id:req.params.recipeId},
+      {$push:{Category:newCategory._id}}
+    );
+    return res.status(201).json(newCategory)
+} catch (error) {
+  return res.status(500).json({ message: error.message });
+}
+};
+
 
 exports.deleteRecipe = async (req, res, next) => {
   try {
