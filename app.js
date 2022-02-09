@@ -26,7 +26,7 @@ passport.use(jwtStrategy);
 //Routes
 app.use("/api", userRoutes);
 app.use("/api/ingredient", ingredientRoutes);
-app.use("/api/recipies", recipesRoutes);
+app.use("/api/recipes", recipesRoutes);
 app.use("/api/category", categoryRoutes);
 
 app.use((err, req, res, next) => {

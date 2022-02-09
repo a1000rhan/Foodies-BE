@@ -13,9 +13,9 @@ const {
 // const upload = require('../../middleware/multer');
 
 routers.param("categoryId", async (req, res, next, id) => {
-  const Category = await fetchCategory(id, next);
-  if (Category) {
-    req.Category = Category;
+  const category = await fetchCategory(id, next);
+  if (category) {
+    req.category = category;
     next();
   } else {
     const err = new Error("Category Not Found");
@@ -27,7 +27,7 @@ routers.param("categoryId", async (req, res, next, id) => {
 routers.get("/", getCategory);
 routers.post("/", categoryCreate);
 routers.post(
-  "/:catogoryId/recipies",
+  "/:categoryId/recipies",
   passport.authenticate("jwt", { session: false }),
   upload.single("image"),
   createRecipes

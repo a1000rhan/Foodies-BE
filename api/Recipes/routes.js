@@ -9,9 +9,7 @@ const {
   deleteRecipe,
   updateRecipe,
   fetchRecipe,
-
   addIngredient,
-  categoryCreate,
 } = require("./controllers");
 
 routers.param("recipesId", async (req, res, next, id) => {
