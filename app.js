@@ -6,6 +6,7 @@ const recipesRoutes = require("./api/Recipes/routes");
 const ingredientRoutes = require("./api/Ingredients/routes");
 const categoryRoutes = require("./api/categories/routes");
 const app = express();
+const path = require("path");
 const passport = require("passport");
 const { localStartegy, jwtStrategy } = require("./middleware/passport");
 
@@ -28,6 +29,8 @@ app.use("/api", userRoutes);
 app.use("/api/ingredient", ingredientRoutes);
 app.use("/api/recipes", recipesRoutes);
 app.use("/api/category", categoryRoutes);
+
+app.use("/media", express.static(path.join(__dirname, "media")));
 
 app.use((err, req, res, next) => {
   res.status(err.status || 500).json({

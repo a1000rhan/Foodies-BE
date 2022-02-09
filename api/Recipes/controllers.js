@@ -74,6 +74,13 @@ exports.updateRecipe = async (req, res, next) => {
 
 exports.createRecipes = async (req, res, next) => {
   try {
+    if (req.file) {
+      req.body.image = `${req.protocol}://${req.get("host")}/${req.file.path}`;
+      console.log(
+        "🚀 ~ file: controllers.js ~ line 79 ~ exports.createRecipes= ~ req.body.image ",
+        req.body.image
+      );
+    }
     req.body.owner = req.user;
 
     const newRecpie = await Recipes.create(req.body);
