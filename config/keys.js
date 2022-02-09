@@ -1,4 +1,4 @@
 module.exports = {
   JWT_SECRETKEY: "asupersecretkey",
-  JWT_EXP: 1000000,
+  JWT_EXP: 10000000,
 };

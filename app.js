@@ -30,7 +30,7 @@ app.use("/api/ingredient", ingredientRoutes);
 app.use("/api/recipes", recipesRoutes);
 app.use("/api/category", categoryRoutes);
 
-app.use("/media", express.static(path.join(__dirname, "media")));
+app.use("/api/media", express.static(path.join(__dirname, "media")));
 
 app.use((err, req, res, next) => {
   res.status(err.status || 500).json({

@@ -34,5 +34,5 @@ routers.post(
 );
 
 routers.delete("/:recipesId", deleteRecipe);
-routers.put("/:recipesId", upload.single("image"), updateRecipe);
+//routers.put("/:recipesId", upload.single("image"), updateRecipe);
 module.exports = routers;

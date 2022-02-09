@@ -31,7 +31,6 @@ exports.jwtStrategy = new JWTStrategy(
   },
 
   async (jwtPayload, done) => {
-    // console.log("🚀 ~ file: passport.js ~ line 33 ~ async ~ jwtPayload", jwtPayload)
     try {
       if (Date.now() > jwtPayload.exp) {
         done(null, false);
