@@ -16,7 +16,7 @@ exports.fetchRecipe = async (recipesId, next) => {
 exports.getRecipes = async (req, res, next) => {
   try {
     //this mothed take only what inside the "
-    const recipeArray = await Recipes.find();
+    const recipeArray = await Recipes.find().populate("owner");
 
     res.json(recipeArray);
   } catch (err) {
