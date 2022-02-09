@@ -16,7 +16,11 @@ exports.fetchRecipe = async (recipesId, next) => {
 exports.getRecipes = async (req, res, next) => {
   try {
     //this mothed take only what inside the "
+<<<<<<< HEAD
     const recipeArray = await Recipes.find().populate("owner");
+=======
+    const recipeArray = await Recipes.find().populate("owner", "username");
+>>>>>>> 6346248241e8b9f5b9dc0bc4dcac7c71f997c590
 
     res.json(recipeArray);
   } catch (err) {
@@ -48,19 +52,6 @@ exports.deleteRecipe = async (req, res, next) => {
   }
 };
 
-exports.addIngredient = async (req, res, next) => {
-  try {
-    const newIngredient = await Ingredient.create(req.body);
-    console.log(
-      "🚀 ~ file: controllers.js ~ line 50 ~ exports.addIngredient= ~ newIngredient",
-      newIngredient
-    );
-
-    return res.status(201).json(newIngredient);
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
-  }
-};
 exports.updateRecipe = async (req, res, next) => {
   try {
     if (req.file) {
@@ -79,5 +70,31 @@ exports.updateRecipe = async (req, res, next) => {
     res.json(recipe);
   } catch (err) {
     next(err);
+  }
+};
+
+exports.createRecipes = async (req, res, next) => {
+  try {
+    req.body.owner = req.user;
+
+    const newRecpie = await Recipes.create(req.body);
+
+    req.body.ingredients.map(async (ingredient) => {
+      await Category.findOneAndUpdate(
+        { _id: ingredient },
+        { $push: { recipes: newRecpie._id } }
+      );
+    });
+
+    req.body.category.map(async (category) => {
+      await Category.findOneAndUpdate(
+        { _id: category },
+        { $push: { recipes: newRecpie._id } }
+      );
+    });
+
+    return res.status(201).json(newRecpie);
+  } catch (error) {
+    next(error);
   }
 };
