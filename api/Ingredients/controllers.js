@@ -1,25 +1,16 @@
 const Ingredient = require("../../db/models/Ingredient");
 
-exports.fetchIngredient = async (ingredientId, next) => {
-  try {
-    const ingredient = await Ingredient.findById(ingredientId);
-    return ingredient;
-  } catch (err) {
-    next(err);
-  }
-};
+// exports.deleteIngredient = async (req, res, next) => {
+//   try {
+//     await Ingredient.findByIdAndDelete({
+//       _id: req.ingredient.id,
+//     });
 
-exports.deleteIngredient = async (req, res, next) => {
-  try {
-    await Ingredient.findByIdAndDelete({
-      _id: req.ingredient.id,
-    });
-
-    res.status(204).end();
-  } catch (err) {
-    next(err);
-  }
-};
+//     res.status(204).end();
+//   } catch (err) {
+//     next(err);
+//   }
+// };
 
 exports.getIngredient = async (req, res, next) => {
   try {
@@ -32,19 +23,28 @@ exports.getIngredient = async (req, res, next) => {
   }
 };
 
-exports.updateIngredient = async (req, res, next) => {
+exports.addIngredient = async (req, res, next) => {
   try {
-    const ingredient = await Ingredient.findByIdAndUpdate(
-      { _id: req.ingredient.id },
-      req.body,
-      { new: true, runValidators: true }
-    );
-    console.log(
-      "🚀 ~ file: controllers.js ~ line 42 ~ exports.updateProducts=async ~ ingredient",
-      ingredient
-    );
-    res.json(ingredient);
+    const newIngredient = await Ingredient.create(req.body);
+
+    return res.status(201).json(newIngredient);
   } catch (error) {
-    next(error);
+    return res.status(500).json({ message: error.message });
   }
 };
+// exports.updateIngredient = async (req, res, next) => {
+//   try {
+//     const ingredient = await Ingredient.findByIdAndUpdate(
+//       { _id: req.ingredient.id },
+//       req.body,
+//       { new: true, runValidators: true }
+//     );
+//     console.log(
+//       "🚀 ~ file: controllers.js ~ line 42 ~ exports.updateProducts=async ~ ingredient",
+//       ingredient
+//     );
+//     res.json(ingredient);
+//   } catch (error) {
+//     next(error);
+//   }
+// };

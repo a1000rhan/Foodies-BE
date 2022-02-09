@@ -1,28 +1,12 @@
 const express = require("express");
 const routers = express.Router();
 
-const {
-  getIngredient,
-  deleteIngredient,
-  updateIngredient,
-  fetchIngredients,
-} = require("./controllers");
-
-
-routers.param("ingredientId", async (req, res, next, id) => {
-  const ingredient = await fetchIngredients(id, next);
-  if (ingredient) {
-    req.ingredient = ingredient;
-    next();
-  } else {
-    next({ status: 404, message: "Ingredient not found" });
-  }
-});
+const { getIngredient, addIngredient } = require("./controllers");
 
 routers.get("/", getIngredient);
+routers.post("/", addIngredient);
 //return one product based on id #
 
-
-routers.delete("/:ingredientId", deleteIngredient);
-routers.put("/:ingredientId", updateIngredient);
+// routers.delete("/:ingredientId", deleteIngredient);
+// routers.put("/:ingredientId", updateIngredient);
 module.exports = routers;
